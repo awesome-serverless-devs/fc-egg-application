@@ -1,0 +1,27 @@
+Test:
+  Component: web-framework
+  Provider: alibaba
+  Access: default
+  # Extends:
+  #   deploy:
+  #     - Hook: npm install
+  #       Path: ./code
+  #       Pre: true
+  Properties:
+    framework: egg
+    region: cn-hangzhou
+    service:
+      name: qianfeng-egg-app
+    function:
+      customContainerConfig:
+        image: registry.cn-hangzhou.aliyuncs.com/fc-demo/fc-nodejs-application-runtime-image:v2
+        command: '["npx"]'
+        args: '["--no-install", "egg-scripts", "start", "--workers=1"]'
+      # caPort: 9000
+      code:
+        src: ./code
+    customDomains:
+      - domainName: auto
+        protocol: HTTP
+        routeConfigs:
+          - path: '/*'
